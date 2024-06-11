@@ -54,7 +54,7 @@ public class Doctor extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("REISTRO DE EXPEDIENTE");
+        jLabel5.setText("HISTORIAL MEDICO");
         jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 51, 140, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/cuidado-de-la-salud.png"))); // NOI18N
@@ -223,14 +223,7 @@ public class Doctor extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        P_RP1 p = new P_RP1();
-        p.setSize(1170, 800);
-        p.setLocation(0,0);
-
-        content.removeAll();
-        content.add(p, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+       
     }//GEN-LAST:event_jPanel4MouseClicked
 
 

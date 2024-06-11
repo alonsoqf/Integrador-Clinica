@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
 public class Login extends javax.swing.JFrame {
 
     Conexion conexion = new Conexion();  // Agregamos una instancia de la clase Conexion
-
+    
     /**
      * Creates new form Login
      */
@@ -27,7 +27,6 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         txtUsuario.setBackground(new java.awt.Color(0, 0, 0, 1));
         txtPassword.setBackground(new java.awt.Color(0, 0, 0, 1));
-
         conexion = new Conexion();  // Inicializamos la instancia de Conexion
     }
 

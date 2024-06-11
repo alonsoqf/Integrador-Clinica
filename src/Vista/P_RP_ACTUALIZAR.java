@@ -584,7 +584,7 @@ public class P_RP_ACTUALIZAR extends javax.swing.JDialog {
 
     private void btnBusquedaPacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBusquedaPacientesMouseClicked
         // Crear un JDialog para la ventana de búsqueda
-        JDialog dialogo = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Ventana de Búsqueda Estudiantil", true);
+        JDialog dialogo = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Ventana de Búsqueda Pacientes", true);
 
         // Crear la tabla para mostrar los datos de registro de pacientes
         JTable tabla = new JTable();

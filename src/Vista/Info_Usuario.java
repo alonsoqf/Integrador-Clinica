@@ -26,6 +26,9 @@ public class Info_Usuario extends javax.swing.JDialog {
 
         initComponents();
 
+        // Establecer el LayoutManager para el panelimagen
+        panelimagen.setLayout(new BorderLayout()); // Por ejemplo, BorderLayout
+
         txtUsuario.setText(usuario);
         txtNombre.setText(nombres);
         txtApellidos.setText(apellidos);
@@ -35,14 +38,7 @@ public class Info_Usuario extends javax.swing.JDialog {
         // Mostrar la imagen en el JLabel
         if (imagen != null) {
             JLabel labelImagen = new JLabel(imagen);
-            panelimagen.add(labelImagen);
-            
-            // Ajusta el tamaño preferido del JLabel al tamaño de la imagen
-            labelImagen.setPreferredSize(new Dimension(imagen.getIconWidth(), imagen.getIconHeight()));
-            
-            // Asegúrate de repintar el panel para mostrar los cambios
-            panelimagen.revalidate();
-            panelimagen.repaint();
+            panelimagen.add(labelImagen, BorderLayout.CENTER); // Añadir el JLabel al centro del panel
         }
 
     }
@@ -79,11 +75,11 @@ public class Info_Usuario extends javax.swing.JDialog {
         panelimagen.setLayout(panelimagenLayout);
         panelimagenLayout.setHorizontalGroup(
             panelimagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 286, Short.MAX_VALUE)
+            .addGap(0, 311, Short.MAX_VALUE)
         );
         panelimagenLayout.setVerticalGroup(
             panelimagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 372, Short.MAX_VALUE)
+            .addGap(0, 389, Short.MAX_VALUE)
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -185,9 +181,9 @@ public class Info_Usuario extends javax.swing.JDialog {
                         .addGap(113, 113, 113)
                         .addComponent(txtRol, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
+                        .addGap(60, 60, 60)
                         .addComponent(panelimagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addGap(38, 38, 38)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
@@ -210,10 +206,9 @@ public class Info_Usuario extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(txtRol, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelimagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,8 +223,11 @@ public class Info_Usuario extends javax.swing.JDialog {
                         .addGap(28, 28, 28)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(panelimagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -286,7 +284,7 @@ public class Info_Usuario extends javax.swing.JDialog {
                 String apellidos = "apellidosEjemplo";
                 String correo = "correoEjemplo";
                 String rol = "rolEjemplo";
-                
+
                 // Crear una instancia de ImageIcon con una imagen de ejemplo
                 ImageIcon imagenEjemplo = new ImageIcon("C:/Users/Alonso Quispe/Descargas/ejemplo.jpg"); // Asegúrate de que la ruta a la imagen es correcta
 
