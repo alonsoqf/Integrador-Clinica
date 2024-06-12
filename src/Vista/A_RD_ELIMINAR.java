@@ -53,7 +53,7 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
     }
 
     private void configurarTabla() {
-        JTableHeader header = tblPacientes.getTableHeader();
+        JTableHeader header = tblDoctor.getTableHeader();
         header.setFont(new Font("Segoe UI", Font.BOLD, 14));
         header.setOpaque(false);
         header.setBackground(new Color(16, 62, 131));
@@ -63,26 +63,26 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
         headerRenderer.setBackground(new Color(16, 62, 131));
         headerRenderer.setForeground(Color.WHITE);
 
-        for (int i = 0; i < tblPacientes.getColumnModel().getColumnCount(); i++) {
-            tblPacientes.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        for (int i = 0; i < tblDoctor.getColumnModel().getColumnCount(); i++) {
+            tblDoctor.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
 
         // Aumentar el alto de las filas
-        tblPacientes.setRowHeight(30);
+        tblDoctor.setRowHeight(30);
 
         // Configurar la tabla para usar PDFCellRenderer en la columna "Historial Profesional"
-        tblPacientes.getColumnModel().getColumn(14).setCellRenderer(new PDFCellRenderer());
+        tblDoctor.getColumnModel().getColumn(15).setCellRenderer(new PDFCellRenderer());
     }
 
     private void añadirListenerTabla() {
-        tblPacientes.addMouseListener(new MouseAdapter() {
+        tblDoctor.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                int column = tblPacientes.columnAtPoint(evt.getPoint());
-                int row = evt.getY() / tblPacientes.getRowHeight();
+                int column = tblDoctor.columnAtPoint(evt.getPoint());
+                int row = evt.getY() / tblDoctor.getRowHeight();
 
-                if (row < tblPacientes.getRowCount() && row >= 0 && column < tblPacientes.getColumnCount() && column >= 0) {
-                    if (column == 14) { // Suponiendo que la columna 14 es la de Historial Profesional
-                        String pdfPath = (String) tblPacientes.getValueAt(row, column);
+                if (row < tblDoctor.getRowCount() && row >= 0 && column < tblDoctor.getColumnCount() && column >= 0) {
+                    if (column == 15) { // Suponiendo que la columna 14 es la de Historial Profesional
+                        String pdfPath = (String) tblDoctor.getValueAt(row, column);
                         if (pdfPath != null && !pdfPath.isEmpty()) {
                             try {
                                 File pdfFile = new File(pdfPath);
@@ -125,7 +125,7 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
         btnEliminar = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblPacientes = new javax.swing.JTable();
+        tblDoctor = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -169,9 +169,7 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
         jLabel4.setForeground(new java.awt.Color(16, 62, 131));
         jLabel4.setText("DNI");
 
-        txtBNombre.setBackground(new java.awt.Color(255, 255, 255));
         txtBNombre.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        txtBNombre.setForeground(new java.awt.Color(0, 0, 0));
         txtBNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         txtBNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -179,9 +177,7 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
             }
         });
 
-        txtBDNI.setBackground(new java.awt.Color(255, 255, 255));
         txtBDNI.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        txtBDNI.setForeground(new java.awt.Color(0, 0, 0));
         txtBDNI.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         txtBDNI.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -227,7 +223,7 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        tblPacientes.setModel(new javax.swing.table.DefaultTableModel(
+        tblDoctor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -238,10 +234,10 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblPacientes.setFocusable(false);
-        tblPacientes.setSelectionBackground(new java.awt.Color(0, 204, 204));
-        tblPacientes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblPacientes);
+        tblDoctor.setFocusable(false);
+        tblDoctor.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        tblDoctor.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblDoctor);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -306,9 +302,9 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
 
     private void txtBNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBNombreKeyReleased
         String texto = txtBNombre.getText();
-        DefaultTableModel modelo = (DefaultTableModel) tblPacientes.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tblDoctor.getModel();
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-        tblPacientes.setRowSorter(sorter);
+        tblDoctor.setRowSorter(sorter);
 
         if (texto.trim().length() == 0) {
             sorter.setRowFilter(null);
@@ -319,9 +315,9 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
 
     private void txtBDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBDNIKeyReleased
         String texto = txtBDNI.getText();
-        DefaultTableModel modelo = (DefaultTableModel) tblPacientes.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tblDoctor.getModel();
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-        tblPacientes.setRowSorter(sorter);
+        tblDoctor.setRowSorter(sorter);
 
         if (texto.trim().length() == 0) {
             sorter.setRowFilter(null);
@@ -336,17 +332,17 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         // Verificar si hay una fila seleccionada
-        int selectedRowView = tblPacientes.getSelectedRow();
+        int selectedRowView = tblDoctor.getSelectedRow();
         if (selectedRowView == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         // Convertir índice de vista a índice de modelo
-        int selectedRowModel = tblPacientes.convertRowIndexToModel(selectedRowView);
+        int selectedRowModel = tblDoctor.convertRowIndexToModel(selectedRowView);
 
         // Obtener los datos del doctor de la fila seleccionada
-        DefaultTableModel modelo = (DefaultTableModel) tblPacientes.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tblDoctor.getModel();
         String idDoctor = (String) modelo.getValueAt(selectedRowModel, 0);
         String codigo = (String) modelo.getValueAt(selectedRowModel, 1);
         String nombres = (String) modelo.getValueAt(selectedRowModel, 2);
@@ -456,7 +452,7 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblPacientes;
+    private javax.swing.JTable tblDoctor;
     private javax.swing.JTextField txtBDNI;
     private javax.swing.JTextField txtBNombre;
     // End of variables declaration//GEN-END:variables
@@ -481,10 +477,11 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
         modelo.addColumn("Fecha Inicio");
         modelo.addColumn("Historial Profesional");
 
-        tblPacientes.setModel(modelo);
+        tblDoctor.setModel(modelo);
         String consultasql = "select * from registro_doctores";
         String[] data = new String[16];
 
+        int rowCount = 0; // Contador de filas
 
         Statement st;
         try {
@@ -520,12 +517,11 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
                 }
 
                 modelo.addRow(data);
-
+                rowCount++;
             }
         } catch (SQLException | IOException e) {
             System.out.println("Error al mostrar Datos " + e);
         }
-
     }
 
     // Clase interna para renderizar la celda de PDF
@@ -552,5 +548,4 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
             return label;
         }
     }
-
 }

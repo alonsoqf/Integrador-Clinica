@@ -57,12 +57,12 @@ public class A_RD extends javax.swing.JInternalFrame {
     }
 
     private void actualizarContador() {
-        int rowCount = tblPacientes.getRowCount();
+        int rowCount = tblDoctor.getRowCount();
         labelContador.setText(""+ rowCount);
     }
 
     private void configurarTabla() {
-        JTableHeader header = tblPacientes.getTableHeader();
+        JTableHeader header = tblDoctor.getTableHeader();
         header.setFont(new Font("Segoe UI", Font.BOLD, 14));
         header.setOpaque(false);
         header.setBackground(new Color(16, 62, 131));
@@ -72,26 +72,26 @@ public class A_RD extends javax.swing.JInternalFrame {
         headerRenderer.setBackground(new Color(16, 62, 131));
         headerRenderer.setForeground(Color.WHITE);
 
-        for (int i = 0; i < tblPacientes.getColumnModel().getColumnCount(); i++) {
-            tblPacientes.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        for (int i = 0; i < tblDoctor.getColumnModel().getColumnCount(); i++) {
+            tblDoctor.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
 
         // Aumentar el alto de las filas
-        tblPacientes.setRowHeight(30);
+        tblDoctor.setRowHeight(30);
 
         // Configurar la tabla para usar PDFCellRenderer en la columna "Historial Profesional"
-        tblPacientes.getColumnModel().getColumn(15).setCellRenderer(new PDFCellRenderer());
+        tblDoctor.getColumnModel().getColumn(15).setCellRenderer(new PDFCellRenderer());
     }
 
     private void añadirListenerTabla() {
-        tblPacientes.addMouseListener(new MouseAdapter() {
+        tblDoctor.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                int column = tblPacientes.columnAtPoint(evt.getPoint());
-                int row = evt.getY() / tblPacientes.getRowHeight();
+                int column = tblDoctor.columnAtPoint(evt.getPoint());
+                int row = evt.getY() / tblDoctor.getRowHeight();
 
-                if (row < tblPacientes.getRowCount() && row >= 0 && column < tblPacientes.getColumnCount() && column >= 0) {
+                if (row < tblDoctor.getRowCount() && row >= 0 && column < tblDoctor.getColumnCount() && column >= 0) {
                     if (column == 15) { // Suponiendo que la columna 14 es la de Historial Profesional
-                        String pdfPath = (String) tblPacientes.getValueAt(row, column);
+                        String pdfPath = (String) tblDoctor.getValueAt(row, column);
                         if (pdfPath != null && !pdfPath.isEmpty()) {
                             try {
                                 File pdfFile = new File(pdfPath);
@@ -137,12 +137,12 @@ public class A_RD extends javax.swing.JInternalFrame {
         btnAñadir = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        txtFiltrarPorNombre = new javax.swing.JTextField();
+        txtFiltrarPorCodigo = new javax.swing.JTextField();
         txtFiltrarPorDNI = new javax.swing.JTextField();
         btnActualizarTabla = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblPacientes = new javax.swing.JTable();
+        tblDoctor = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         labelContador = new javax.swing.JLabel();
@@ -151,7 +151,7 @@ public class A_RD extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), null), "CRUD", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), null), "CRUD", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sincronizar.png"))); // NOI18N
@@ -184,22 +184,18 @@ public class A_RD extends javax.swing.JInternalFrame {
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 8, 80));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("EXCEL");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("AÑADIR");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("ELIMINAR");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("PDF");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, -1, -1));
 
@@ -213,26 +209,21 @@ public class A_RD extends javax.swing.JInternalFrame {
         jPanel2.add(btnAñadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 24, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("ACTUALIZAR");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), null), "MAS OPCIONES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), null), "MAS OPCIONES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        txtFiltrarPorNombre.setBackground(new java.awt.Color(255, 255, 255));
-        txtFiltrarPorNombre.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        txtFiltrarPorNombre.setForeground(new java.awt.Color(0, 0, 0));
-        txtFiltrarPorNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        txtFiltrarPorNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtFiltrarPorCodigo.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        txtFiltrarPorCodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        txtFiltrarPorCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtFiltrarPorNombreKeyReleased(evt);
+                txtFiltrarPorCodigoKeyReleased(evt);
             }
         });
 
-        txtFiltrarPorDNI.setBackground(new java.awt.Color(255, 255, 255));
         txtFiltrarPorDNI.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        txtFiltrarPorDNI.setForeground(new java.awt.Color(0, 0, 0));
         txtFiltrarPorDNI.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         txtFiltrarPorDNI.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -249,7 +240,6 @@ public class A_RD extends javax.swing.JInternalFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("ACTUALIZAR TABLA");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -258,7 +248,7 @@ public class A_RD extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(txtFiltrarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFiltrarPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtFiltrarPorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
@@ -275,7 +265,7 @@ public class A_RD extends javax.swing.JInternalFrame {
                 .addContainerGap(8, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtFiltrarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFiltrarPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtFiltrarPorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnActualizarTabla, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(3, 3, 3)
@@ -283,7 +273,7 @@ public class A_RD extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        tblPacientes.setModel(new javax.swing.table.DefaultTableModel(
+        tblDoctor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -294,12 +284,12 @@ public class A_RD extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblPacientes.setFocusable(false);
-        tblPacientes.setSelectionBackground(new java.awt.Color(0, 204, 204));
-        tblPacientes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblPacientes);
+        tblDoctor.setFocusable(false);
+        tblDoctor.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        tblDoctor.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblDoctor);
 
-        jPanel4.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel4.setBackground(new java.awt.Color(1, 102, 152));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/equipo-medico (3) (1).png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -424,24 +414,24 @@ public class A_RD extends javax.swing.JInternalFrame {
         actualizarContador();
     }//GEN-LAST:event_btnActualizarTablaMouseClicked
 
-    private void txtFiltrarPorNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarPorNombreKeyReleased
-        String texto = txtFiltrarPorNombre.getText();
-        DefaultTableModel modelo = (DefaultTableModel) tblPacientes.getModel();
+    private void txtFiltrarPorCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarPorCodigoKeyReleased
+        String texto = txtFiltrarPorCodigo.getText();
+        DefaultTableModel modelo = (DefaultTableModel) tblDoctor.getModel();
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-        tblPacientes.setRowSorter(sorter);
+        tblDoctor.setRowSorter(sorter);
 
         if (texto.trim().length() == 0) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 2)); // Filtra por la columna "Nombres" (índice 1)
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 1)); // Filtra por la columna "Nombres" (índice 1)
         }
-    }//GEN-LAST:event_txtFiltrarPorNombreKeyReleased
+    }//GEN-LAST:event_txtFiltrarPorCodigoKeyReleased
 
     private void txtFiltrarPorDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarPorDNIKeyReleased
         String texto = txtFiltrarPorDNI.getText();
-        DefaultTableModel modelo = (DefaultTableModel) tblPacientes.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tblDoctor.getModel();
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-        tblPacientes.setRowSorter(sorter);
+        tblDoctor.setRowSorter(sorter);
 
         if (texto.trim().length() == 0) {
             sorter.setRowFilter(null);
@@ -473,9 +463,9 @@ public class A_RD extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelContador;
-    private javax.swing.JTable tblPacientes;
+    private javax.swing.JTable tblDoctor;
+    private javax.swing.JTextField txtFiltrarPorCodigo;
     private javax.swing.JTextField txtFiltrarPorDNI;
-    private javax.swing.JTextField txtFiltrarPorNombre;
     // End of variables declaration//GEN-END:variables
 
     private void mostrarDatos() {
@@ -498,7 +488,7 @@ public class A_RD extends javax.swing.JInternalFrame {
         modelo.addColumn("Fecha Inicio");
         modelo.addColumn("Historial Profesional");
 
-        tblPacientes.setModel(modelo);
+        tblDoctor.setModel(modelo);
         String consultasql = "select * from registro_doctores";
         String[] data = new String[16];
 

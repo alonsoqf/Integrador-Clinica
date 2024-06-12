@@ -130,9 +130,7 @@ public class A_RD_AÑADIR extends javax.swing.JDialog {
         jLabel3.setForeground(new java.awt.Color(16, 62, 131));
         jLabel3.setText("NOMBRES");
 
-        txtNombres.setBackground(new java.awt.Color(255, 255, 255));
         txtNombres.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtNombres.setForeground(new java.awt.Color(0, 0, 0));
         txtNombres.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -147,50 +145,38 @@ public class A_RD_AÑADIR extends javax.swing.JDialog {
         jLabel6.setForeground(new java.awt.Color(16, 62, 131));
         jLabel6.setText("GENERO");
 
-        txtDNI.setBackground(new java.awt.Color(255, 255, 255));
         txtDNI.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtDNI.setForeground(new java.awt.Color(0, 0, 0));
         txtDNI.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
-        txtApellPaterno.setBackground(new java.awt.Color(255, 255, 255));
         txtApellPaterno.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtApellPaterno.setForeground(new java.awt.Color(0, 0, 0));
         txtApellPaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(16, 62, 131));
         jLabel7.setText("DNI/PASAPORTE");
 
-        txtApellMaterno.setBackground(new java.awt.Color(255, 255, 255));
         txtApellMaterno.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtApellMaterno.setForeground(new java.awt.Color(0, 0, 0));
         txtApellMaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(16, 62, 131));
         jLabel8.setText("APELLIDO MATERNO");
 
-        txtDireccion.setBackground(new java.awt.Color(255, 255, 255));
         txtDireccion.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtDireccion.setForeground(new java.awt.Color(0, 0, 0));
         txtDireccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(16, 62, 131));
         jLabel9.setText("TELEFONO");
 
-        txtTelefono.setBackground(new java.awt.Color(255, 255, 255));
         txtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtTelefono.setForeground(new java.awt.Color(0, 0, 0));
         txtTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(16, 62, 131));
         jLabel10.setText("FECHA NACIMIENTO");
 
-        txtCorreo.setBackground(new java.awt.Color(255, 255, 255));
         txtCorreo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtCorreo.setForeground(new java.awt.Color(0, 0, 0));
         txtCorreo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -213,9 +199,7 @@ public class A_RD_AÑADIR extends javax.swing.JDialog {
         jLabel14.setForeground(new java.awt.Color(16, 62, 131));
         jLabel14.setText("DIRECCION");
 
-        txtNacionalidad.setBackground(new java.awt.Color(255, 255, 255));
         txtNacionalidad.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtNacionalidad.setForeground(new java.awt.Color(0, 0, 0));
         txtNacionalidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         btnRegistrar.setBackground(new java.awt.Color(40, 110, 180));
@@ -283,7 +267,7 @@ public class A_RD_AÑADIR extends javax.swing.JDialog {
             .addGroup(btnSalirLayout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(jLabel16)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         btnSalirLayout.setVerticalGroup(
             btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -508,25 +492,26 @@ public class A_RD_AÑADIR extends javax.swing.JDialog {
         String genero = txtGenero.getSelectedItem().toString();
         String correo = txtCorreo.getText();
         String telefono = txtTelefono.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaNac = sdf.format(txtFechaNac.getDate());
         String especialidad = txtEspecialidad.getSelectedItem().toString();
         String distrito = txtDistrito.getSelectedItem().toString();
         String direccion = txtDireccion.getText();
         String nacionalidad = txtNacionalidad.getText();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaNac = sdf.format(txtFechaNac.getDate());
         String fechaInicio = sdf.format(txtFechaInicio.getDate());
 
         if (nombres.isEmpty() || apellidoPaterno.isEmpty() || apellidoMaterno.isEmpty() || dni.isEmpty()
-                || genero.isEmpty() || correo.isEmpty() || telefono.isEmpty() || fechaNac.isEmpty()
+                || txtFechaNac.getDate() == null || txtFechaInicio.getDate() == null || genero.isEmpty() || correo.isEmpty() || telefono.isEmpty() || fechaNac.isEmpty()
                 || especialidad.isEmpty() || distrito.isEmpty() || direccion.isEmpty()
                 || nacionalidad.isEmpty() || fechaInicio.isEmpty() || selectedPDF == null || selectedImage == null) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos y seleccione los archivos necesarios.");
             return;
         }
-        
+
         // Obtener el próximo ID disponible para generar el usuario
         String usuario = obtenerSiguienteCodigoDoc();
-        
+
         // Guardar los datos en la base de datos
         try {
             String query = "INSERT INTO registro_doctores (codigo_doc, nombres, apellido_paterno, apellido_materno, dni, genero, correo, telefono, fech_nac, especialidad, distrito, direccion, nacionalidad, fecha_inicio, historial_prof, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -606,17 +591,6 @@ public class A_RD_AÑADIR extends javax.swing.JDialog {
         btnSalir.setBackground(new Color(204, 0, 0));
     }//GEN-LAST:event_btnSalirMouseExited
 
-    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos PDF", "pdf");
-        fileChooser.setFileFilter(filter);
-        int result = fileChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            selectedPDF = fileChooser.getSelectedFile();
-            btnPDF.setText(selectedPDF.getName());
-        }
-    }//GEN-LAST:event_btnPDFActionPerformed
-
     private void btnImagenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImagenMouseClicked
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg", "gif");
@@ -630,8 +604,19 @@ public class A_RD_AÑADIR extends javax.swing.JDialog {
             panelimagen.add(imageLabel, BorderLayout.CENTER);
             panelimagen.revalidate();
             panelimagen.repaint();
+        }
     }//GEN-LAST:event_btnImagenMouseClicked
-    }
+
+    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos PDF", "pdf");
+        fileChooser.setFileFilter(filter);
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedPDF = fileChooser.getSelectedFile();
+            btnPDF.setText(selectedPDF.getName());
+        }
+    }//GEN-LAST:event_btnPDFActionPerformed
 
     /**
      * @param args the command line arguments

@@ -128,6 +128,12 @@ public class Admision extends javax.swing.JPanel {
         jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 70, 70));
 
         jPanel8.setBackground(new java.awt.Color(153, 102, 0));
+        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel8MouseClicked(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -200,6 +206,12 @@ public class Admision extends javax.swing.JPanel {
         jPanel11.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 70, 70));
 
         jPanel12.setBackground(new java.awt.Color(175, 96, 26));
+        jPanel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel12MouseClicked(evt);
+            }
+        });
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -276,6 +288,18 @@ public class Admision extends javax.swing.JPanel {
         content.removeAll();
         content.add(ac).setVisible(true);
     }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
+        A_RPR ac = new A_RPR();
+        content.removeAll();
+        content.add(ac).setVisible(true);
+    }//GEN-LAST:event_jPanel8MouseClicked
+
+    private void jPanel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseClicked
+        A_RPV ac = new A_RPV();
+        content.removeAll();
+        content.add(ac).setVisible(true);
+    }//GEN-LAST:event_jPanel12MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -130,7 +130,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("ACTUALIZAR DOCTOR");
+        jLabel1.setText("ACTUALIZAR PERSONAL");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/clinica-san-juan-de-dios-logo (1).png"))); // NOI18N
 
@@ -142,7 +142,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2)
                 .addGap(139, 139, 139)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -159,9 +159,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
         jLabel3.setForeground(new java.awt.Color(16, 62, 131));
         jLabel3.setText("NOMBRES");
 
-        txtNombres.setBackground(new java.awt.Color(255, 255, 255));
         txtNombres.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtNombres.setForeground(new java.awt.Color(0, 0, 0));
         txtNombres.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -176,50 +174,38 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
         jLabel6.setForeground(new java.awt.Color(16, 62, 131));
         jLabel6.setText("GENERO");
 
-        txtDNI.setBackground(new java.awt.Color(255, 255, 255));
         txtDNI.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtDNI.setForeground(new java.awt.Color(0, 0, 0));
         txtDNI.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
-        txtApellPaterno.setBackground(new java.awt.Color(255, 255, 255));
         txtApellPaterno.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtApellPaterno.setForeground(new java.awt.Color(0, 0, 0));
         txtApellPaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(16, 62, 131));
         jLabel7.setText("DNI/PASAPORTE");
 
-        txtApellMaterno.setBackground(new java.awt.Color(255, 255, 255));
         txtApellMaterno.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtApellMaterno.setForeground(new java.awt.Color(0, 0, 0));
         txtApellMaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(16, 62, 131));
         jLabel8.setText("APELLIDO MATERNO");
 
-        txtDireccion.setBackground(new java.awt.Color(255, 255, 255));
         txtDireccion.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtDireccion.setForeground(new java.awt.Color(0, 0, 0));
         txtDireccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(16, 62, 131));
         jLabel9.setText("TELEFONO");
 
-        txtTelefono.setBackground(new java.awt.Color(255, 255, 255));
         txtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtTelefono.setForeground(new java.awt.Color(0, 0, 0));
         txtTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(16, 62, 131));
         jLabel10.setText("FECHA NACIMIENTO");
 
-        txtCorreo.setBackground(new java.awt.Color(255, 255, 255));
         txtCorreo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtCorreo.setForeground(new java.awt.Color(0, 0, 0));
         txtCorreo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -242,9 +228,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
         jLabel14.setForeground(new java.awt.Color(16, 62, 131));
         jLabel14.setText("DIRECCION");
 
-        txtNacionalidad.setBackground(new java.awt.Color(255, 255, 255));
         txtNacionalidad.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtNacionalidad.setForeground(new java.awt.Color(0, 0, 0));
         txtNacionalidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
 
         btnActualizar.setBackground(new java.awt.Color(40, 110, 180));
@@ -312,7 +296,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
             .addGroup(btnSalirLayout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(jLabel16)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         btnSalirLayout.setVerticalGroup(
             btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,7 +364,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("BUSCAR DOCTOR");
+        jLabel19.setText("BUSCAR PERSONAL");
 
         javax.swing.GroupLayout btnBusquedaDoctorLayout = new javax.swing.GroupLayout(btnBusquedaDoctor);
         btnBusquedaDoctor.setLayout(btnBusquedaDoctorLayout);
@@ -402,7 +386,6 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
         txtID.setEditable(false);
         txtID.setBackground(new java.awt.Color(255, 255, 255));
         txtID.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtID.setForeground(new java.awt.Color(0, 0, 0));
         txtID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
         txtID.setEnabled(false);
@@ -410,7 +393,6 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
         txtCodigo.setEditable(false);
         txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
         txtCodigo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtCodigo.setForeground(new java.awt.Color(0, 0, 0));
         txtCodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
         txtCodigo.setEnabled(false);
 
@@ -619,24 +601,20 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
         String genero = txtGenero.getSelectedItem().toString();
         String correo = txtCorreo.getText();
         String telefono = txtTelefono.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaNac = sdf.format(txtFechaNac.getDate());
         String especialidad = txtEspecialidad.getSelectedItem().toString();
         String distrito = txtDistrito.getSelectedItem().toString();
         String direccion = txtDireccion.getText();
         String nacionalidad = txtNacionalidad.getText();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaNac = sdf.format(txtFechaNac.getDate());
         String fechaInicio = sdf.format(txtFechaInicio.getDate());
 
         if (nombres.isEmpty() || apellidoPaterno.isEmpty() || apellidoMaterno.isEmpty() || dni.isEmpty()
-                || genero.isEmpty() || correo.isEmpty() || telefono.isEmpty() || fechaNac.isEmpty()
+                || txtFechaNac.getDate() == null || txtFechaInicio.getDate() == null || genero.isEmpty() || correo.isEmpty() || telefono.isEmpty() || fechaNac.isEmpty()
                 || especialidad.isEmpty() || distrito.isEmpty() || direccion.isEmpty()
                 || nacionalidad.isEmpty() || fechaInicio.isEmpty() || selectedPDF == null || selectedImage == null) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos y seleccione los archivos necesarios.");
-            return;
-        }
-
-        if (!selectedPDF.exists() || !selectedPDF.canRead()) {
-            JOptionPane.showMessageDialog(this, "El archivo PDF seleccionado no existe o no se puede leer.");
             return;
         }
 
@@ -670,6 +648,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
 
             pst.executeUpdate();
             JOptionPane.showMessageDialog(this, "Datos actualizados correctamente.");
+            limpiarEntradas();
         } catch (SQLException | IOException e) {
             JOptionPane.showMessageDialog(this, "Error al actualizar los datos: " + e.getMessage());
         }
@@ -1016,6 +995,8 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void limpiarEntradas() {
+        txtID.setText("");
+        txtCodigo.setText("");
         txtNombres.setText("");
         txtApellPaterno.setText("");
         txtApellMaterno.setText("");
