@@ -302,9 +302,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" pref="297" max="-2" attributes="0"/>
+                      <Component id="txtFiltrarPorNombre" min="-2" pref="297" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jTextField2" min="-2" pref="188" max="-2" attributes="0"/>
+                      <Component id="txtFiltrarPorDNI" min="-2" pref="188" max="-2" attributes="0"/>
                       <EmptySpace pref="47" max="32767" attributes="0"/>
                       <Component id="btnActualizarTabla" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
@@ -322,8 +322,8 @@
                       <EmptySpace pref="8" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                              <Component id="jTextField1" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
-                              <Component id="jTextField2" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="txtFiltrarPorNombre" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="txtFiltrarPorDNI" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                           </Group>
                           <Component id="btnActualizarTabla" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -335,7 +335,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="jTextField1">
+            <Component class="javax.swing.JTextField" name="txtFiltrarPorNombre">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -354,8 +354,11 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltrarPorNombreKeyReleased"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField2">
+            <Component class="javax.swing.JTextField" name="txtFiltrarPorDNI">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -374,6 +377,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltrarPorDNIKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="btnActualizarTabla">
               <Properties>

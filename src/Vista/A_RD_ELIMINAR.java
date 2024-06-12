@@ -313,7 +313,7 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
         if (texto.trim().length() == 0) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 1)); // Filtra por la columna "Nombres" (índice 1)
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 2)); // Filtra por la columna "Nombres" (índice 1)
         }
     }//GEN-LAST:event_txtBNombreKeyReleased
 
@@ -326,7 +326,7 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
         if (texto.trim().length() == 0) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 4)); // Filtra por la columna "DNI/PASAPORTE" (índice 4)
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 5)); // Filtra por la columna "DNI/PASAPORTE" (índice 4)
         }
     }//GEN-LAST:event_txtBDNIKeyReleased
 
@@ -348,23 +348,25 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
         // Obtener los datos del doctor de la fila seleccionada
         DefaultTableModel modelo = (DefaultTableModel) tblPacientes.getModel();
         String idDoctor = (String) modelo.getValueAt(selectedRowModel, 0);
-        String nombres = (String) modelo.getValueAt(selectedRowModel, 1);
-        String apellidoPaterno = (String) modelo.getValueAt(selectedRowModel, 2);
-        String apellidoMaterno = (String) modelo.getValueAt(selectedRowModel, 3);
-        String dni = (String) modelo.getValueAt(selectedRowModel, 4);
-        String fechaNacimiento = (String) modelo.getValueAt(selectedRowModel, 5);
-        String genero = (String) modelo.getValueAt(selectedRowModel, 6);
-        String telefono = (String) modelo.getValueAt(selectedRowModel, 7);
-        String correoElectronico = (String) modelo.getValueAt(selectedRowModel, 8);
-        String especialidad = (String) modelo.getValueAt(selectedRowModel, 9);
-        String distrito = (String) modelo.getValueAt(selectedRowModel, 10);
-        String direccion = (String) modelo.getValueAt(selectedRowModel, 11);
-        String nacionalidad = (String) modelo.getValueAt(selectedRowModel, 12);
-        String fechaInicio = (String) modelo.getValueAt(selectedRowModel, 13);
+        String codigo = (String) modelo.getValueAt(selectedRowModel, 1);
+        String nombres = (String) modelo.getValueAt(selectedRowModel, 2);
+        String apellidoPaterno = (String) modelo.getValueAt(selectedRowModel, 3);
+        String apellidoMaterno = (String) modelo.getValueAt(selectedRowModel, 4);
+        String dni = (String) modelo.getValueAt(selectedRowModel, 5);
+        String fechaNacimiento = (String) modelo.getValueAt(selectedRowModel, 6);
+        String genero = (String) modelo.getValueAt(selectedRowModel, 7);
+        String telefono = (String) modelo.getValueAt(selectedRowModel, 8);
+        String correoElectronico = (String) modelo.getValueAt(selectedRowModel, 9);
+        String especialidad = (String) modelo.getValueAt(selectedRowModel, 10);
+        String distrito = (String) modelo.getValueAt(selectedRowModel, 11);
+        String direccion = (String) modelo.getValueAt(selectedRowModel, 12);
+        String nacionalidad = (String) modelo.getValueAt(selectedRowModel, 13);
+        String fechaInicio = (String) modelo.getValueAt(selectedRowModel, 14);
 
         // Crear el mensaje de confirmación con los detalles del doctor
         String mensaje = "¿Estás seguro de que deseas eliminar el siguiente doctor?\n\n"
                 + "ID Doctor: " + idDoctor + "\n"
+                + "Codigo Doctor: " + codigo + "\n"
                 + "Nombres: " + nombres + "\n"
                 + "Apellido Paterno: " + apellidoPaterno + "\n"
                 + "Apellido Materno: " + apellidoMaterno + "\n"
@@ -461,7 +463,9 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
 
     private void mostrarDatos() {
         DefaultTableModel modelo = new DefaultTableModel();
+        // Columnas existentes
         modelo.addColumn("ID Doctor");
+        modelo.addColumn("Codigo Doctor");
         modelo.addColumn("Nombres");
         modelo.addColumn("Apellido Paterno");
         modelo.addColumn("Apellido Materno");
@@ -479,7 +483,8 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
 
         tblPacientes.setModel(modelo);
         String consultasql = "select * from registro_doctores";
-        String[] data = new String[15];
+        String[] data = new String[16];
+
 
         Statement st;
         try {
@@ -500,22 +505,27 @@ public class A_RD_ELIMINAR extends javax.swing.JDialog {
                 data[11] = rs.getString(12);
                 data[12] = rs.getString(13);
                 data[13] = rs.getString(14);
+                data[14] = rs.getString(15);
 
-                byte[] pdfData = rs.getBytes(15); // Historial Profesional
+                // Historial Profesional
+                byte[] pdfData = rs.getBytes(16); // Obtener datos de archivo PDF
                 if (pdfData != null) {
-                    // Guarda el archivo PDF en un archivo temporal
-                    File tempFile = File.createTempFile("historial_profesional_", ".pdf");
-                    FileUtils.writeByteArrayToFile(tempFile, pdfData);
-                    data[14] = tempFile.getAbsolutePath();
+                    // Guardar el archivo PDF en una ubicación permanente
+                    String pdfFileName = "historial_profesional_" + data[0] + ".pdf"; // Nombre de archivo único basado en el ID del doctor
+                    File pdfFile = new File(System.getProperty("user.home"), pdfFileName); // Guardar en el directorio de inicio del usuario
+                    FileUtils.writeByteArrayToFile(pdfFile, pdfData);
+                    data[15] = pdfFile.getAbsolutePath();
                 } else {
-                    data[14] = "";
+                    data[15] = "";
                 }
 
                 modelo.addRow(data);
+
             }
         } catch (SQLException | IOException e) {
             System.out.println("Error al mostrar Datos " + e);
         }
+
     }
 
     // Clase interna para renderizar la celda de PDF

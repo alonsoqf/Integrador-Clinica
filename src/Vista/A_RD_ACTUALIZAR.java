@@ -118,6 +118,8 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
         btnBusquedaDoctor = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -405,11 +407,28 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
         txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
         txtID.setEnabled(false);
 
+        txtCodigo.setEditable(false);
+        txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
+        txtCodigo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtCodigo.setForeground(new java.awt.Color(0, 0, 0));
+        txtCodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 188, 204)));
+        txtCodigo.setEnabled(false);
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(16, 62, 131));
+        jLabel20.setText("CODIGO");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -417,10 +436,17 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                         .addComponent(panelimagen, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(115, 115, 115)
-                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(btnImagen)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
                             .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -428,7 +454,11 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
                             .addComponent(btnPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(164, 164, 164))
+                        .addGap(67, 67, 67))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBusquedaDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(251, 251, 251))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -440,44 +470,34 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                             .addComponent(jLabel12)
                             .addComponent(txtDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11))
-                                .addGap(0, 9, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtApellMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtApellPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel14)
-                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(56, 56, 56)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(txtNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(40, 40, 40)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel4)
+                                            .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel11)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtApellPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel10)
+                                            .addComponent(jLabel14)
+                                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(56, 56, 56)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel13)
+                                            .addComponent(txtNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8))))
+                                .addGap(0, 3, Short.MAX_VALUE)))
                         .addGap(91, 91, 91))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addComponent(btnImagen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBusquedaDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(251, 251, 251))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -539,14 +559,19 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel18)
+                                .addComponent(jLabel17))
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(6, 6, 6))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -554,11 +579,11 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                         .addComponent(panelimagen, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(btnBusquedaDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnImagen)))
+                        .addComponent(btnImagen))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(btnBusquedaDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -586,6 +611,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
 
     private void btnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseClicked
         String id = txtID.getText();
+        String codigo = txtCodigo.getText();
         String nombres = txtNombres.getText();
         String apellidoPaterno = txtApellPaterno.getText();
         String apellidoMaterno = txtApellMaterno.getText();
@@ -618,28 +644,29 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
             // Leer el archivo PDF como bytes
             byte[] pdfBytes = Files.readAllBytes(selectedPDF.toPath());
 
-            String query = "UPDATE registro_doctores SET nombres=?, apellido_paterno=?, apellido_materno=?, dni=?, genero=?, correo=?, telefono=?, fech_nac=?, especialidad=?, distrito=?, direccion=?, nacionalidad=?, fecha_inicio=?, historial_prof=?, imagen=? WHERE id=?";
+            String query = "UPDATE registro_doctores SET codigo_doc=?, nombres=?, apellido_paterno=?, apellido_materno=?, dni=?, genero=?, correo=?, telefono=?, fech_nac=?, especialidad=?, distrito=?, direccion=?, nacionalidad=?, fecha_inicio=?, historial_prof=?, imagen=? WHERE id=?";
             PreparedStatement pst = cn.prepareStatement(query);
-            pst.setString(1, nombres);
-            pst.setString(2, apellidoPaterno);
-            pst.setString(3, apellidoMaterno);
-            pst.setString(4, dni);
-            pst.setString(5, genero);
-            pst.setString(6, correo);
-            pst.setString(7, telefono);
-            pst.setString(8, fechaNac);
-            pst.setString(9, especialidad);
-            pst.setString(10, distrito);
-            pst.setString(11, direccion);
-            pst.setString(12, nacionalidad);
-            pst.setString(13, fechaInicio);
-            pst.setBytes(14, pdfBytes); // Guardar el PDF como bytes en la base de datos
+            pst.setString(1, codigo);
+            pst.setString(2, nombres);
+            pst.setString(3, apellidoPaterno);
+            pst.setString(4, apellidoMaterno);
+            pst.setString(5, dni);
+            pst.setString(6, genero);
+            pst.setString(7, correo);
+            pst.setString(8, telefono);
+            pst.setString(9, fechaNac);
+            pst.setString(10, especialidad);
+            pst.setString(11, distrito);
+            pst.setString(12, direccion);
+            pst.setString(13, nacionalidad);
+            pst.setString(14, fechaInicio);
+            pst.setBytes(15, pdfBytes); // Guardar el PDF como bytes en la base de datos
 
             // Dejar la parte de la imagen tal como está
             FileInputStream fis = new FileInputStream(selectedImage);
-            pst.setBinaryStream(15, fis);
+            pst.setBinaryStream(16, fis);
 
-            pst.setString(16, id);
+            pst.setString(17, id);
 
             pst.executeUpdate();
             JOptionPane.showMessageDialog(this, "Datos actualizados correctamente.");
@@ -714,14 +741,15 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
         // Crear un modelo de tabla
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID Doctor");
+        modelo.addColumn("Codigo Doctor");
         modelo.addColumn("Nombres");
         modelo.addColumn("Apellido Paterno");
         modelo.addColumn("Apellido Materno");
         modelo.addColumn("DNI");
-        modelo.addColumn("Fech.Nacimiento");
         modelo.addColumn("Genero");
         modelo.addColumn("Correo");
         modelo.addColumn("Telefono");
+        modelo.addColumn("Fech.Nacimiento");
         modelo.addColumn("Especialidad");
         modelo.addColumn("Distrito");
         modelo.addColumn("Direccion");
@@ -740,8 +768,8 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                 Statement st = cn.createStatement();
                 java.sql.ResultSet rs = st.executeQuery(consultaSql);
                 while (rs.next()) {
-                    Object[] fila = new Object[16];
-                    for (int i = 0; i < 16; i++) {
+                    Object[] fila = new Object[17];
+                    for (int i = 0; i < 17; i++) {
                         fila[i] = rs.getObject(i + 1);
                     }
                     modelo.addRow(fila);
@@ -775,18 +803,19 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                     }
                     // Mostrar los datos en los JTextField correspondientes del JPanel
                     txtID.setText(fila[0].toString());
-                    txtNombres.setText(fila[1].toString());
-                    txtApellPaterno.setText(fila[2].toString());
-                    txtApellMaterno.setText(fila[3].toString());
-                    txtDNI.setText(fila[4].toString());
-                    txtGenero.setSelectedItem(fila[5].toString());
-                    txtCorreo.setText(fila[6].toString());
-                    txtTelefono.setText(fila[7].toString());
-                    if (fila[8] != null && !fila[8].toString().isEmpty()) {
+                    txtCodigo.setText(fila[1].toString());
+                    txtNombres.setText(fila[2].toString());
+                    txtApellPaterno.setText(fila[3].toString());
+                    txtApellMaterno.setText(fila[4].toString());
+                    txtDNI.setText(fila[5].toString());
+                    txtGenero.setSelectedItem(fila[6].toString());
+                    txtCorreo.setText(fila[7].toString());
+                    txtTelefono.setText(fila[8].toString());
+                    if (fila[9] != null && !fila[9].toString().isEmpty()) {
                         try {
                             // Convertir la fecha de nacimiento de String a Date
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                            Date fechaNacimiento = dateFormat.parse(fila[8].toString());
+                            Date fechaNacimiento = dateFormat.parse(fila[9].toString());
                             txtFechaNac.setDate(fechaNacimiento);
                         } catch (ParseException ex) {
                             System.out.println("Error al convertir la fecha de nacimiento: " + ex.getMessage());
@@ -794,14 +823,14 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                     } else {
                         txtFechaNac.setDate(null);
                     }
-                    txtEspecialidad.setSelectedItem(fila[9].toString());
-                    txtDistrito.setSelectedItem(fila[10].toString());
-                    txtDireccion.setText(fila[11].toString());
-                    txtNacionalidad.setText(fila[12].toString());
-                    if (fila[13] != null && !fila[13].toString().isEmpty()) {
+                    txtEspecialidad.setSelectedItem(fila[10].toString());
+                    txtDistrito.setSelectedItem(fila[11].toString());
+                    txtDireccion.setText(fila[12].toString());
+                    txtNacionalidad.setText(fila[13].toString());
+                    if (fila[14] != null && !fila[14].toString().isEmpty()) {
                         try {
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                            Date fechaInicio = dateFormat.parse(fila[13].toString());
+                            Date fechaInicio = dateFormat.parse(fila[14].toString());
                             txtFechaInicio.setDate(fechaInicio);
                         } catch (ParseException ex) {
                             System.out.println("Error al convertir la fecha de inicio: " + ex.getMessage());
@@ -811,9 +840,9 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                     }
 
                     // Procesar PDF
-                    if (fila[14] != null) {
+                    if (fila[15] != null) {
                         try {
-                            byte[] pdfData = (byte[]) fila[14]; // Obtener el BLOB desde la base de datos
+                            byte[] pdfData = (byte[]) fila[15]; // Obtener el BLOB desde la base de datos
                             File tempPDF = File.createTempFile("tempPDF", ".pdf");
                             try (FileOutputStream fos = new FileOutputStream(tempPDF)) {
                                 fos.write(pdfData);
@@ -829,9 +858,9 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                     }
 
                     // Procesar Imagen
-                    if (fila[15] != null) {
+                    if (fila[16] != null) {
                         try {
-                            byte[] imageBytes = (byte[]) fila[15]; // Obtener el arreglo de bytes desde la fila
+                            byte[] imageBytes = (byte[]) fila[16]; // Obtener el arreglo de bytes desde la fila
                             if (imageBytes.length > 0) {
                                 InputStream is = new ByteArrayInputStream(imageBytes);
                                 BufferedImage bufferedImage = ImageIO.read(is);
@@ -875,7 +904,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
         dialogo.add(panelBotones, BorderLayout.SOUTH);
 
         // Crear el campo de texto para la búsqueda por DNI
-        JTextField txtBDNI = new JTextField(15);
+        JTextField txtBDNI = new JTextField(16);
         JPanel panelBusqueda = new JPanel();
         panelBusqueda.add(new JLabel("Buscar por DNI:"));
         panelBusqueda.add(txtBDNI);
@@ -887,7 +916,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
                 String dni = txtBDNI.getText();
                 TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
                 tabla.setRowSorter(sorter);
-                sorter.setRowFilter(RowFilter.regexFilter(dni, 4)); // Filtrar por la columna DNI
+                sorter.setRowFilter(RowFilter.regexFilter(dni, 5)); // Filtrar por la columna DNI
             }
         });
 
@@ -958,6 +987,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -970,6 +1000,7 @@ public class A_RD_ACTUALIZAR extends javax.swing.JDialog {
     private javax.swing.JPanel panelimagen;
     private javax.swing.JTextField txtApellMaterno;
     private javax.swing.JTextField txtApellPaterno;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtDireccion;

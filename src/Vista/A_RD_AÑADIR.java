@@ -19,6 +19,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.sql.Statement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -37,10 +39,9 @@ public class A_RD_AÑADIR extends javax.swing.JDialog {
     public A_RD_AÑADIR(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         panelimagen.setLayout(new BorderLayout()); // Establecer BorderLayout para panelimagen
-        
-        
+
     }
 
     /**
@@ -515,34 +516,38 @@ public class A_RD_AÑADIR extends javax.swing.JDialog {
         String nacionalidad = txtNacionalidad.getText();
         String fechaInicio = sdf.format(txtFechaInicio.getDate());
 
-        if (nombres.isEmpty() || apellidoPaterno.isEmpty() || apellidoMaterno.isEmpty() || dni.isEmpty() ||
-            genero.isEmpty() || correo.isEmpty() || telefono.isEmpty() || fechaNac.isEmpty() || 
-            especialidad.isEmpty() || distrito.isEmpty() || direccion.isEmpty() || 
-            nacionalidad.isEmpty() || fechaInicio.isEmpty() || selectedPDF == null || selectedImage == null) {
+        if (nombres.isEmpty() || apellidoPaterno.isEmpty() || apellidoMaterno.isEmpty() || dni.isEmpty()
+                || genero.isEmpty() || correo.isEmpty() || telefono.isEmpty() || fechaNac.isEmpty()
+                || especialidad.isEmpty() || distrito.isEmpty() || direccion.isEmpty()
+                || nacionalidad.isEmpty() || fechaInicio.isEmpty() || selectedPDF == null || selectedImage == null) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos y seleccione los archivos necesarios.");
             return;
         }
-
+        
+        // Obtener el próximo ID disponible para generar el usuario
+        String usuario = obtenerSiguienteCodigoDoc();
+        
         // Guardar los datos en la base de datos
         try {
-            String query = "INSERT INTO registro_doctores (nombres, apellido_paterno, apellido_materno, dni, genero, correo, telefono, fech_nac, especialidad, distrito, direccion, nacionalidad, fecha_inicio, historial_prof, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO registro_doctores (codigo_doc, nombres, apellido_paterno, apellido_materno, dni, genero, correo, telefono, fech_nac, especialidad, distrito, direccion, nacionalidad, fecha_inicio, historial_prof, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = cn.prepareStatement(query);
 
-            ps.setString(1, nombres);
-            ps.setString(2, apellidoPaterno);
-            ps.setString(3, apellidoMaterno);
-            ps.setString(4, dni);
-            ps.setString(5, genero);
-            ps.setString(6, correo);
-            ps.setString(7, telefono);
-            ps.setString(8, fechaNac);
-            ps.setString(9, especialidad);
-            ps.setString(10, distrito);
-            ps.setString(11, direccion);
-            ps.setString(12, nacionalidad);
-            ps.setString(13, fechaInicio);
-            ps.setBlob(14, new FileInputStream(selectedPDF));
-            ps.setBlob(15, new FileInputStream(selectedImage));
+            ps.setString(1, usuario);
+            ps.setString(2, nombres);
+            ps.setString(3, apellidoPaterno);
+            ps.setString(4, apellidoMaterno);
+            ps.setString(5, dni);
+            ps.setString(6, genero);
+            ps.setString(7, correo);
+            ps.setString(8, telefono);
+            ps.setString(9, fechaNac);
+            ps.setString(10, especialidad);
+            ps.setString(11, distrito);
+            ps.setString(12, direccion);
+            ps.setString(13, nacionalidad);
+            ps.setString(14, fechaInicio);
+            ps.setBlob(15, new FileInputStream(selectedPDF));
+            ps.setBlob(16, new FileInputStream(selectedImage));
 
             int rows = ps.executeUpdate();
             if (rows > 0) {
@@ -558,6 +563,25 @@ public class A_RD_AÑADIR extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnRegistrarMouseClicked
+
+    private String obtenerSiguienteCodigoDoc() {
+        String nextCodigoDoc = "SJDD1";
+        try {
+            String query = "SELECT MAX(id) FROM registro_doctores";
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                int nextId = rs.getInt(1) + 1;
+                nextCodigoDoc = "SJDD" + nextId;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener el próximo código de doctor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return nextCodigoDoc;
+    }
+
 
     private void btnRegistrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseExited
         btnRegistrar.setBackground(new Color(153, 204, 255));
@@ -608,6 +632,7 @@ public class A_RD_AÑADIR extends javax.swing.JDialog {
             panelimagen.repaint();
     }//GEN-LAST:event_btnImagenMouseClicked
     }
+
     /**
      * @param args the command line arguments
      */

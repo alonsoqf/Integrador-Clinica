@@ -30,6 +30,8 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.JTable;
 import org.apache.commons.io.FileUtils;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -49,6 +51,14 @@ public class A_RD extends javax.swing.JInternalFrame {
         mostrarDatos();
         configurarTabla();
         añadirListenerTabla();
+
+        // Llamar para inicializar el contador
+        actualizarContador();
+    }
+
+    private void actualizarContador() {
+        int rowCount = tblPacientes.getRowCount();
+        labelContador.setText(""+ rowCount);
     }
 
     private void configurarTabla() {
@@ -70,7 +80,7 @@ public class A_RD extends javax.swing.JInternalFrame {
         tblPacientes.setRowHeight(30);
 
         // Configurar la tabla para usar PDFCellRenderer en la columna "Historial Profesional"
-        tblPacientes.getColumnModel().getColumn(14).setCellRenderer(new PDFCellRenderer());
+        tblPacientes.getColumnModel().getColumn(15).setCellRenderer(new PDFCellRenderer());
     }
 
     private void añadirListenerTabla() {
@@ -80,7 +90,7 @@ public class A_RD extends javax.swing.JInternalFrame {
                 int row = evt.getY() / tblPacientes.getRowHeight();
 
                 if (row < tblPacientes.getRowCount() && row >= 0 && column < tblPacientes.getColumnCount() && column >= 0) {
-                    if (column == 14) { // Suponiendo que la columna 14 es la de Historial Profesional
+                    if (column == 15) { // Suponiendo que la columna 14 es la de Historial Profesional
                         String pdfPath = (String) tblPacientes.getValueAt(row, column);
                         if (pdfPath != null && !pdfPath.isEmpty()) {
                             try {
@@ -127,15 +137,15 @@ public class A_RD extends javax.swing.JInternalFrame {
         btnAñadir = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtFiltrarPorNombre = new javax.swing.JTextField();
+        txtFiltrarPorDNI = new javax.swing.JTextField();
         btnActualizarTabla = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPacientes = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelContador = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -210,15 +220,25 @@ public class A_RD extends javax.swing.JInternalFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), null), "MAS OPCIONES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        txtFiltrarPorNombre.setBackground(new java.awt.Color(255, 255, 255));
+        txtFiltrarPorNombre.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        txtFiltrarPorNombre.setForeground(new java.awt.Color(0, 0, 0));
+        txtFiltrarPorNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        txtFiltrarPorNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltrarPorNombreKeyReleased(evt);
+            }
+        });
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        txtFiltrarPorDNI.setBackground(new java.awt.Color(255, 255, 255));
+        txtFiltrarPorDNI.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        txtFiltrarPorDNI.setForeground(new java.awt.Color(0, 0, 0));
+        txtFiltrarPorDNI.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        txtFiltrarPorDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltrarPorDNIKeyReleased(evt);
+            }
+        });
 
         btnActualizarTabla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/actualizar.png"))); // NOI18N
         btnActualizarTabla.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -238,9 +258,9 @@ public class A_RD extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFiltrarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFiltrarPorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(btnActualizarTabla)
                 .addGap(40, 40, 40))
@@ -255,8 +275,8 @@ public class A_RD extends javax.swing.JInternalFrame {
                 .addContainerGap(8, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtFiltrarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFiltrarPorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnActualizarTabla, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(3, 3, 3)
                 .addComponent(jLabel9)
@@ -284,9 +304,8 @@ public class A_RD extends javax.swing.JInternalFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/equipo-medico (3) (1).png"))); // NOI18N
         jLabel1.setText("jLabel1");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("0");
+        labelContador.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        labelContador.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -301,7 +320,7 @@ public class A_RD extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelContador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
@@ -312,7 +331,7 @@ public class A_RD extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelContador, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -402,7 +421,34 @@ public class A_RD extends javax.swing.JInternalFrame {
     private void btnActualizarTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarTablaMouseClicked
         mostrarDatos();
         configurarTabla();
+        actualizarContador();
     }//GEN-LAST:event_btnActualizarTablaMouseClicked
+
+    private void txtFiltrarPorNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarPorNombreKeyReleased
+        String texto = txtFiltrarPorNombre.getText();
+        DefaultTableModel modelo = (DefaultTableModel) tblPacientes.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        tblPacientes.setRowSorter(sorter);
+
+        if (texto.trim().length() == 0) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 2)); // Filtra por la columna "Nombres" (índice 1)
+        }
+    }//GEN-LAST:event_txtFiltrarPorNombreKeyReleased
+
+    private void txtFiltrarPorDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarPorDNIKeyReleased
+        String texto = txtFiltrarPorDNI.getText();
+        DefaultTableModel modelo = (DefaultTableModel) tblPacientes.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        tblPacientes.setRowSorter(sorter);
+
+        if (texto.trim().length() == 0) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 5)); // Filtra por la columna "DNI/PASAPORTE" (índice 4)
+        }
+    }//GEN-LAST:event_txtFiltrarPorDNIKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -415,7 +461,6 @@ public class A_RD extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -427,15 +472,17 @@ public class A_RD extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel labelContador;
     private javax.swing.JTable tblPacientes;
+    private javax.swing.JTextField txtFiltrarPorDNI;
+    private javax.swing.JTextField txtFiltrarPorNombre;
     // End of variables declaration//GEN-END:variables
 
     private void mostrarDatos() {
         DefaultTableModel modelo = new DefaultTableModel();
         // Columnas existentes
         modelo.addColumn("ID Doctor");
+        modelo.addColumn("Codigo Doctor");
         modelo.addColumn("Nombres");
         modelo.addColumn("Apellido Paterno");
         modelo.addColumn("Apellido Materno");
@@ -453,7 +500,9 @@ public class A_RD extends javax.swing.JInternalFrame {
 
         tblPacientes.setModel(modelo);
         String consultasql = "select * from registro_doctores";
-        String[] data = new String[15];
+        String[] data = new String[16];
+
+        int rowCount = 0; // Contador de filas
 
         Statement st;
         try {
@@ -474,24 +523,29 @@ public class A_RD extends javax.swing.JInternalFrame {
                 data[11] = rs.getString(12);
                 data[12] = rs.getString(13);
                 data[13] = rs.getString(14);
+                data[14] = rs.getString(15);
 
                 // Historial Profesional
-                byte[] pdfData = rs.getBytes(15); // Obtener datos de archivo PDF
+                byte[] pdfData = rs.getBytes(16); // Obtener datos de archivo PDF
                 if (pdfData != null) {
                     // Guardar el archivo PDF en una ubicación permanente
                     String pdfFileName = "historial_profesional_" + data[0] + ".pdf"; // Nombre de archivo único basado en el ID del doctor
                     File pdfFile = new File(System.getProperty("user.home"), pdfFileName); // Guardar en el directorio de inicio del usuario
                     FileUtils.writeByteArrayToFile(pdfFile, pdfData);
-                    data[14] = pdfFile.getAbsolutePath();
+                    data[15] = pdfFile.getAbsolutePath();
                 } else {
-                    data[14] = "";
+                    data[15] = "";
                 }
 
                 modelo.addRow(data);
+                rowCount++;
             }
         } catch (SQLException | IOException e) {
             System.out.println("Error al mostrar Datos " + e);
         }
+
+        // Actualizar el contador
+        labelContador.setText("Total de Doctores Registrados: " + rowCount);
     }
 
     // Clase interna para renderizar la celda de PDF

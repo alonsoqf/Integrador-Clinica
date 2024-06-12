@@ -9,9 +9,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Window;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -23,33 +20,14 @@ import javax.swing.table.TableRowSorter;
  *
  * @author PC
  */
-public class P_RP1 extends javax.swing.JInternalFrame {
+public class D_RH extends javax.swing.JInternalFrame {
     Conexion con = new Conexion();
     Connection cn=con.conectar();
     /**
-     * Creates new form D_RP1
+     * Creates new form D_RH
      */
-    public P_RP1() {
+    public D_RH() {
         initComponents();
-        mostrarDatos();       
-        // Configurar el encabezado de la tabla
-        JTableHeader header = tblPacientes.getTableHeader();
-        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        header.setOpaque(false);
-        header.setBackground(new Color(16, 62, 131));
-        header.setForeground(Color.WHITE); // Asegurar que el texto del encabezado sea blanco
-
-        // Usar un DefaultTableCellRenderer para aplicar el color de fondo del encabezado
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(16, 62, 131));
-        headerRenderer.setForeground(Color.WHITE); // Asegurar que el texto del encabezado sea blanco
-
-        for (int i = 0; i < tblPacientes.getColumnModel().getColumnCount(); i++) {
-            tblPacientes.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
-        }
-
-        tblPacientes.setRowHeight(20);
-
     }
 
     /**
@@ -81,9 +59,6 @@ public class P_RP1 extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPacientes = new javax.swing.JTable();
-
-        setBackground(new java.awt.Color(0, 0, 0));
-        setBorder(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -245,7 +220,7 @@ public class P_RP1 extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -276,17 +251,17 @@ public class P_RP1 extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAñadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAñadirMouseClicked
-        P_RP_AÑADIR a;
+    private void btnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseClicked
+        P_RP_ACTUALIZAR a;
         Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
         if (window instanceof JFrame) {
-            a = new P_RP_AÑADIR((JFrame) window, true); // Assuming the second argument is a boolean for modality
+            a = new P_RP_ACTUALIZAR((JFrame) window, true); // Assuming the second argument is a boolean for modality
             a.setVisible(true);
         } else {
             // Handle the case where the ancestor is not a JFrame
             System.err.println("Ancestor is not a JFrame");
         }
-    }//GEN-LAST:event_btnAñadirMouseClicked
+    }//GEN-LAST:event_btnActualizarMouseClicked
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         P_RP_ELIMINAR a;
@@ -300,37 +275,17 @@ public class P_RP1 extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarMouseClicked
 
-    private void btnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseClicked
-        P_RP_ACTUALIZAR a;
+    private void btnAñadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAñadirMouseClicked
+        P_RP_AÑADIR a;
         Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
         if (window instanceof JFrame) {
-            a = new P_RP_ACTUALIZAR((JFrame) window, true); // Assuming the second argument is a boolean for modality
+            a = new P_RP_AÑADIR((JFrame) window, true); // Assuming the second argument is a boolean for modality
             a.setVisible(true);
         } else {
             // Handle the case where the ancestor is not a JFrame
             System.err.println("Ancestor is not a JFrame");
         }
-    }//GEN-LAST:event_btnActualizarMouseClicked
-
-    private void btnActualizarTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarTablaMouseClicked
-        mostrarDatos(); // Llama al método mostrarDatos() para actualizar la tabla
-        JTableHeader header = tblPacientes.getTableHeader();
-        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        header.setOpaque(false);
-        header.setBackground(new Color(16, 62, 131));
-        header.setForeground(Color.WHITE); // Asegurar que el texto del encabezado sea blanco
-
-        // Usar un DefaultTableCellRenderer para aplicar el color de fondo del encabezado
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(16, 62, 131));
-        headerRenderer.setForeground(Color.WHITE); // Asegurar que el texto del encabezado sea blanco
-
-        for (int i = 0; i < tblPacientes.getColumnModel().getColumnCount(); i++) {
-            tblPacientes.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
-        }
-
-        tblPacientes.setRowHeight(20);
-    }//GEN-LAST:event_btnActualizarTablaMouseClicked
+    }//GEN-LAST:event_btnAñadirMouseClicked
 
     private void txtFiltrarPorNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarPorNombreKeyReleased
         String texto = txtFiltrarPorNombre.getText();
@@ -358,6 +313,26 @@ public class P_RP1 extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtFiltrarPorDNIKeyReleased
 
+    private void btnActualizarTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarTablaMouseClicked
+        //mostrarDatos(); // Llama al método mostrarDatos() para actualizar la tabla
+        JTableHeader header = tblPacientes.getTableHeader();
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        header.setOpaque(false);
+        header.setBackground(new Color(16, 62, 131));
+        header.setForeground(Color.WHITE); // Asegurar que el texto del encabezado sea blanco
+
+        // Usar un DefaultTableCellRenderer para aplicar el color de fondo del encabezado
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(16, 62, 131));
+        headerRenderer.setForeground(Color.WHITE); // Asegurar que el texto del encabezado sea blanco
+
+        for (int i = 0; i < tblPacientes.getColumnModel().getColumnCount(); i++) {
+            tblPacientes.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
+
+        tblPacientes.setRowHeight(20);
+    }//GEN-LAST:event_btnActualizarTablaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnActualizar;
@@ -381,51 +356,8 @@ public class P_RP1 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtFiltrarPorDNI;
     private javax.swing.JTextField txtFiltrarPorNombre;
     // End of variables declaration//GEN-END:variables
+
     
-    private void mostrarDatos() {
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID Paciente");
-        modelo.addColumn("Nombres");
-        modelo.addColumn("Apellido Paterno");
-        modelo.addColumn("Apellido Materno");
-        modelo.addColumn("DNI/PASAPORTE");
-        modelo.addColumn("Fech.Nacimiento");
-        modelo.addColumn("Genero");
-        modelo.addColumn("Telefono");
-        modelo.addColumn("Correo Electronico");
-        modelo.addColumn("Estado Civil");
-        modelo.addColumn("Direccion");
-        modelo.addColumn("Nacionalidad");
-        modelo.addColumn("Celular Emergencia");
-        
-        tblPacientes.setModel(modelo);
-        String consultasql="select*from registro_pacientes";
-        String data[]=new String[13]; // Cambio de longitud a 8
-        
-        Statement st;
-        try {
-            st = cn.createStatement();
-            ResultSet rs=st.executeQuery(consultasql);
-            while(rs.next()) {
-                data[0]=rs.getString(1);
-                data[1]=rs.getString(2);
-                data[2]=rs.getString(3);
-                data[3]=rs.getString(4);
-                data[4]=rs.getString(5);
-                data[5]=rs.getString(6);
-                data[6]=rs.getString(7);
-                data[7]=rs.getString(8);
-                data[8]=rs.getString(9);
-                data[9]=rs.getString(10);
-                data[10]=rs.getString(11);
-                data[11]=rs.getString(12);
-                data[12]=rs.getString(13);
-                
-                modelo.addRow(data);
-            }
-        } catch(SQLException e) {
-            System.out.println("Error al mostrar Datos "+ e);
-        }
-    }
+
 
 }
