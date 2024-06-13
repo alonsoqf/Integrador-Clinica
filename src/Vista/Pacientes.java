@@ -123,6 +123,7 @@ public class Pacientes extends javax.swing.JPanel {
         jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 70, 70));
 
         jPanel8.setBackground(new java.awt.Color(24, 106, 59));
+        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -159,6 +160,12 @@ public class Pacientes extends javax.swing.JPanel {
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 70, 70));
 
         jPanel6.setBackground(new java.awt.Color(27, 79, 114));
+        jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -230,6 +237,12 @@ public class Pacientes extends javax.swing.JPanel {
         content.removeAll();
         content.add(ac).setVisible(true);
     }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        P_RDC ac = new P_RDC();
+        content.removeAll();
+        content.add(ac).setVisible(true);
+    }//GEN-LAST:event_jPanel6MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

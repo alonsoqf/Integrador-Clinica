@@ -4,17 +4,47 @@
  */
 package Vista;
 
+import Controlador.Conexion;
+import java.awt.Color;
+import java.awt.Font;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
 /**
  *
  * @author PC
  */
 public class P_RDC extends javax.swing.JInternalFrame {
-
+    Conexion con = new Conexion();
+    Connection cn = con.conectar();
     /**
      * Creates new form P_RDC
      */
     public P_RDC() {
         initComponents();
+        mostrarDatos();       
+        // Configurar el encabezado de la tabla
+        JTableHeader header = tblPacientes.getTableHeader();
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        header.setOpaque(false);
+        header.setBackground(new Color(16, 62, 131));
+        header.setForeground(Color.WHITE); // Asegurar que el texto del encabezado sea blanco
+
+        // Usar un DefaultTableCellRenderer para aplicar el color de fondo del encabezado
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(16, 62, 131));
+        headerRenderer.setForeground(Color.WHITE); // Asegurar que el texto del encabezado sea blanco
+
+        for (int i = 0; i < tblPacientes.getColumnModel().getColumnCount(); i++) {
+            tblPacientes.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
+
+        tblPacientes.setRowHeight(20);
     }
 
     /**
@@ -57,7 +87,6 @@ public class P_RDC extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        txtEspecialidad = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -74,6 +103,7 @@ public class P_RDC extends javax.swing.JInternalFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         txtFecha9 = new javax.swing.JTextField();
+        txtEspecialidad = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -157,7 +187,7 @@ public class P_RDC extends javax.swing.JInternalFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("BUSCAR DOCTOR");
+        jLabel9.setText("BUSCAR CITA DOCTOR");
 
         btnPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/paciente.png"))); // NOI18N
         btnPacientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -176,9 +206,9 @@ public class P_RDC extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(158, 158, 158)
+                .addGap(134, 134, 134)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                 .addComponent(jLabel16)
                 .addGap(150, 150, 150))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -302,10 +332,6 @@ public class P_RDC extends javax.swing.JInternalFrame {
         jLabel14.setForeground(new java.awt.Color(16, 62, 131));
         jLabel14.setText("HORA");
 
-        txtEspecialidad.setBackground(new java.awt.Color(63, 99, 139));
-        txtEspecialidad.setForeground(new java.awt.Color(255, 255, 255));
-        txtEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE--", "Dermatología.", "Cardiología.", "Neurología.", "Geriatría.", "Pediatría.", "Nefrología.", "Otorrinolaringología.", "Genética.", "Anestesiología.", "Estomatología.", "Traumotología." }));
-
         jPanel4.setBackground(new java.awt.Color(153, 204, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(283, 37));
 
@@ -389,11 +415,11 @@ public class P_RDC extends javax.swing.JInternalFrame {
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(16, 62, 131));
-        jLabel19.setText("APELLIDO MATERNO");
+        jLabel19.setText("APELLIDO PATERNO");
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(16, 62, 131));
-        jLabel20.setText("APELLIDO PATERNO");
+        jLabel20.setText("APELLIDO MATERNO");
 
         txtFecha6.setBackground(new java.awt.Color(255, 255, 255));
         txtFecha6.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
@@ -467,6 +493,10 @@ public class P_RDC extends javax.swing.JInternalFrame {
             }
         });
 
+        txtEspecialidad.setBackground(new java.awt.Color(63, 99, 139));
+        txtEspecialidad.setForeground(new java.awt.Color(255, 255, 255));
+        txtEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE--", "Dermatología.", "Cardiología.", "Neurología.", "Geriatría.", "Pediatría.", "Nefrología.", "Otorrinolaringología.", "Genética.", "Anestesiología.", "Estomatología.", "Traumotología." }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -479,8 +509,8 @@ public class P_RDC extends javax.swing.JInternalFrame {
                             .addComponent(txtFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
                             .addComponent(jLabel11)
-                            .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
+                            .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtFecha2, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
@@ -586,19 +616,20 @@ public class P_RDC extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel13)
                                     .addComponent(jLabel14))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addComponent(jLabel22)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtFecha8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -766,4 +797,51 @@ public class P_RDC extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtFecha8;
     private javax.swing.JTextField txtFecha9;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarDatos() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID Paciente");
+        modelo.addColumn("Nombres");
+        modelo.addColumn("Apellido Paterno");
+        modelo.addColumn("Apellido Materno");
+        modelo.addColumn("DNI/PASAPORTE");
+        modelo.addColumn("Fech.Nacimiento");
+        modelo.addColumn("Genero");
+        modelo.addColumn("Telefono");
+        modelo.addColumn("Correo Electronico");
+        modelo.addColumn("Estado Civil");
+        modelo.addColumn("Direccion");
+        modelo.addColumn("Nacionalidad");
+        modelo.addColumn("Celular Emergencia");
+        
+        tblPacientes.setModel(modelo);
+        String consultasql="select*from registro_pacientes";
+        String data[]=new String[13]; // Cambio de longitud a 8
+        
+        Statement st;
+        try {
+            st = cn.createStatement();
+            ResultSet rs=st.executeQuery(consultasql);
+            while(rs.next()) {
+                data[0]=rs.getString(1);
+                data[1]=rs.getString(2);
+                data[2]=rs.getString(3);
+                data[3]=rs.getString(4);
+                data[4]=rs.getString(5);
+                data[5]=rs.getString(6);
+                data[6]=rs.getString(7);
+                data[7]=rs.getString(8);
+                data[8]=rs.getString(9);
+                data[9]=rs.getString(10);
+                data[10]=rs.getString(11);
+                data[11]=rs.getString(12);
+                data[12]=rs.getString(13);
+                
+                modelo.addRow(data);
+            }
+        } catch(SQLException e) {
+            System.out.println("Error al mostrar Datos "+ e);
+        }
+    }
+    
 }
