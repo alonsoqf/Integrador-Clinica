@@ -32,6 +32,26 @@ import javax.swing.JTable;
 import org.apache.commons.io.FileUtils;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.demo.DateChooserPanel;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+import javax.swing.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPTable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.table.TableModel;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 /**
  *
  * @author jr860
@@ -108,6 +128,242 @@ public class A_RPR extends javax.swing.JInternalFrame {
             }
         });
     }
+    
+    public void convertirJTableAPDF() {
+        Rectangle pageSize = PageSize.A2.rotate();
+        Document document = new Document(pageSize);
+        FileOutputStream fileOut = null;
+        try {
+            String rutaPDF = "Reporte_Personal.pdf";
+            fileOut = new FileOutputStream(rutaPDF);
+            PdfWriter.getInstance(document, fileOut);
+            document.open();
+
+            try {
+                Image imagen = Image.getInstance("C:\\Users\\PC\\Desktop\\TF2\\Integrador-Clinica\\src\\Img\\logo.png");
+                imagen.scaleToFit(150, 200);
+                document.add(imagen);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error al cargar la imagen", "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+
+            Paragraph infoDerecha = new Paragraph();
+            infoDerecha.setAlignment(Element.ALIGN_RIGHT);
+
+            // Usuario
+            Chunk usuarioChunk = new Chunk("Usuario: Administrador", FontFactory.getFont(FontFactory.HELVETICA, 13, BaseColor.BLACK));
+            infoDerecha.add(usuarioChunk);
+            Chunk fechaChunk = new Chunk("\nFecha: " + obtenerFechaActual(), FontFactory.getFont(FontFactory.HELVETICA, 13, BaseColor.BLACK));
+            infoDerecha.add(fechaChunk);
+            Chunk horaChunk = new Chunk("\nHora: " + obtenerHoraActual(), FontFactory.getFont(FontFactory.HELVETICA, 13, BaseColor.BLACK));
+            infoDerecha.add(horaChunk);
+
+            infoDerecha.setSpacingBefore(-50);
+
+            document.add(infoDerecha);
+
+            LineSeparator separator = new LineSeparator();
+            separator.setLineColor(BaseColor.BLACK);
+            separator.setLineWidth(1);
+            Chunk linebreak = new Chunk(separator);
+            document.add(linebreak);
+
+            Paragraph espacio = new Paragraph(" ");
+            document.add(espacio);
+
+            BaseColor titleColor = new BaseColor(23, 32, 49);
+            com.itextpdf.text.Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, titleColor);
+
+            String textoTitulo = "Reporte de Personal";
+            Paragraph titulo = new Paragraph(textoTitulo.toUpperCase(), titleFont);
+            titulo.setAlignment(Element.ALIGN_CENTER); // Centrar el texto
+            titulo.setSpacingAfter(30f);
+            document.add(titulo);
+
+            PdfPTable pdfTable = new PdfPTable(tblPersonal.getColumnCount());
+            pdfTable.setWidthPercentage(100);
+            pdfTable.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            pdfTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfTable.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
+            pdfTable.getDefaultCell().setBackgroundColor(BaseColor.GRAY);
+
+            com.itextpdf.text.Font headerFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12, com.itextpdf.text.Font.BOLD, BaseColor.WHITE);
+            BaseColor headerBackgroundColor = new BaseColor(23, 66, 136, 255);
+
+            DefaultTableModel miModelo = (DefaultTableModel) tblPersonal.getModel();
+            for (int i = 0; i < miModelo.getColumnCount(); i++) {
+                String columnName = miModelo.getColumnName(i).toUpperCase(); // Convertir a mayúsculas
+                PdfPCell headerCell = new PdfPCell(new Phrase(columnName, headerFont));
+                headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                headerCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                headerCell.setBackgroundColor(headerBackgroundColor);
+                headerCell.setFixedHeight(30f);
+                pdfTable.addCell(headerCell);
+            }
+
+            com.itextpdf.text.Font dataFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12, com.itextpdf.text.Font.NORMAL, BaseColor.BLACK);
+            BaseColor rowBackgroundColor = new BaseColor(255, 255, 255);
+
+            float alturaFila = 20f;
+            float padding = 3f; // Espacio adicional
+
+            TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) tblPersonal.getRowSorter();
+            if (sorter != null) {
+                for (int i = 0; i < sorter.getViewRowCount(); i++) {
+                    int modelRow = sorter.convertRowIndexToModel(i);
+                    for (int j = 0; j < miModelo.getColumnCount(); j++) {
+                        Object cellValue = miModelo.getValueAt(modelRow, j);
+                        PdfPCell dataCell = new PdfPCell(new Phrase(cellValue != null ? cellValue.toString() : "", dataFont));
+                        dataCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        dataCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        dataCell.setFixedHeight(alturaFila);
+                        dataCell.setPadding(padding); // Establecer el espacio adicional
+                        dataCell.setBackgroundColor(rowBackgroundColor); // Establecer el color de fondo de la fila
+                        pdfTable.addCell(dataCell);
+                    }
+                }
+            }
+
+            document.add(pdfTable);
+
+        } catch (DocumentException | IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al generar el PDF", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } finally {
+            document.close();
+            if (fileOut != null) {
+                try {
+                    fileOut.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private String obtenerFechaActual() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    private String obtenerHoraActual() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public void convertirJTableAExcel() {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        try {
+            Sheet sheet = workbook.createSheet("Registro de Personal");
+            int filaInicio = 3;
+            int columnaInicio = 2;
+
+            CellStyle titleStyle = workbook.createCellStyle();
+            titleStyle.setAlignment(HorizontalAlignment.CENTER);
+            titleStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+            XSSFFont titleFont = workbook.createFont();
+            titleFont.setFontHeightInPoints((short) 18);
+            titleFont.setBold(true);
+            titleStyle.setFont(titleFont);
+
+            Row titleRow = sheet.createRow(filaInicio);
+            Cell titleCell = titleRow.createCell(columnaInicio);
+            titleCell.setCellValue("REGISTRO DE PERSONAL");
+            titleCell.setCellStyle(titleStyle);
+            sheet.addMergedRegion(new CellRangeAddress(filaInicio, filaInicio, columnaInicio, columnaInicio + tblPersonal.getColumnCount() - 1));
+
+            sheet.createRow(filaInicio + 1);
+
+            byte[] rgb = {(byte) 23, (byte) 66, (byte) 136}; // Color rgba(23,66,136,255)
+            XSSFColor headerColor = new XSSFColor(new java.awt.Color(rgb[0] & 0xFF, rgb[1] & 0xFF, rgb[2] & 0xFF), null);
+
+            XSSFCellStyle headerStyle = workbook.createCellStyle();
+            headerStyle.setAlignment(HorizontalAlignment.CENTER);
+            headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+            headerStyle.setFillForegroundColor(headerColor);
+            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerStyle.setBorderTop(BorderStyle.THIN);
+            headerStyle.setBorderBottom(BorderStyle.THIN);
+            headerStyle.setBorderLeft(BorderStyle.THIN);
+            headerStyle.setBorderRight(BorderStyle.THIN);
+            XSSFFont headerFont = workbook.createFont();
+            headerFont.setColor(IndexedColors.WHITE.getIndex());
+            headerFont.setBold(true);
+            headerStyle.setFont(headerFont);
+
+            Row headerRow = sheet.createRow(filaInicio + 2);
+            for (int i = 0; i < tblPersonal.getColumnCount(); i++) {
+                Cell cell = headerRow.createCell(columnaInicio + i);
+                cell.setCellValue(" " + tblPersonal.getColumnName(i).toUpperCase() + " "); // Añadir espacios adicionales
+                cell.setCellStyle(headerStyle);
+            }
+
+            byte[] rgbRow = {(byte) 255, (byte) 255, (byte) 255}; // Color rgba(22,24,36,255)
+            XSSFColor rowColor = new XSSFColor(new java.awt.Color(rgbRow[0] & 0xFF, rgbRow[1] & 0xFF, rgbRow[2] & 0xFF), null);
+
+            XSSFCellStyle dataStyle = workbook.createCellStyle();
+            dataStyle.setAlignment(HorizontalAlignment.CENTER);
+            dataStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+            dataStyle.setFillForegroundColor(rowColor);
+            dataStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            dataStyle.setBorderTop(BorderStyle.THIN);
+            dataStyle.setBorderBottom(BorderStyle.THIN);
+            dataStyle.setBorderLeft(BorderStyle.THIN);
+            dataStyle.setBorderRight(BorderStyle.THIN);
+            XSSFFont dataFont = workbook.createFont();
+            dataFont.setColor(IndexedColors.BLACK.getIndex());
+            dataStyle.setFont(dataFont);
+
+            TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) tblPersonal.getRowSorter();
+            int filaExcel = filaInicio + 3;
+
+            if (sorter != null) {
+                for (int i = 0; i < sorter.getViewRowCount(); i++) {
+                    int modelRow = sorter.convertRowIndexToModel(i);
+                    Row row = sheet.createRow(filaExcel++);
+                    for (int j = 0; j < tblPersonal.getColumnCount(); j++) {
+                        Object cellValue = tblPersonal.getValueAt(modelRow, j);
+                        Cell cell = row.createCell(columnaInicio + j);
+                        cell.setCellValue(cellValue != null ? cellValue.toString() : "");
+                        cell.setCellStyle(dataStyle);
+                    }
+                }
+            } else {
+                for (int i = 0; i < tblPersonal.getRowCount(); i++) {
+                    Row row = sheet.createRow(filaExcel++);
+                    for (int j = 0; j < tblPersonal.getColumnCount(); j++) {
+                        Object cellValue = tblPersonal.getValueAt(i, j);
+                        Cell cell = row.createCell(columnaInicio + j);
+                        cell.setCellValue(cellValue != null ? cellValue.toString() : "");
+                        cell.setCellStyle(dataStyle);
+                    }
+                }
+            }
+
+            for (int i = 0; i < tblPersonal.getColumnCount(); i++) {
+                sheet.setColumnWidth(i + columnaInicio, 15 * 380);
+            }
+
+            String rutaExcel = "Reporte_Personal.xlsx";
+            try (FileOutputStream fileOut = new FileOutputStream(rutaExcel)) {
+                workbook.write(fileOut);
+            }
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al generar el Excel", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } finally {
+            try {
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -169,10 +425,20 @@ public class A_RPR extends javax.swing.JInternalFrame {
 
         btnPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pdf.png"))); // NOI18N
         btnPDF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPDF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPDFMouseClicked(evt);
+            }
+        });
         jPanel2.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 24, -1, -1));
 
         btnEXCEL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sobresalir.png"))); // NOI18N
         btnEXCEL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEXCEL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEXCELMouseClicked(evt);
+            }
+        });
         jPanel2.add(btnEXCEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 24, -1, -1));
 
         jSeparator1.setBackground(new java.awt.Color(204, 204, 204));
@@ -434,6 +700,16 @@ public class A_RPR extends javax.swing.JInternalFrame {
         configurarTabla();
         actualizarContador();
     }//GEN-LAST:event_btnActualizarTablaMouseClicked
+
+    private void btnEXCELMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEXCELMouseClicked
+        convertirJTableAExcel();
+        JOptionPane.showMessageDialog(null, "EXCEL generado correctamente");
+    }//GEN-LAST:event_btnEXCELMouseClicked
+
+    private void btnPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPDFMouseClicked
+        convertirJTableAPDF();
+        JOptionPane.showMessageDialog(null, "PDF generado correctamente");
+    }//GEN-LAST:event_btnPDFMouseClicked
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

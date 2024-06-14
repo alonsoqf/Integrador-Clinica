@@ -5,6 +5,21 @@
 package Vista;
 
 import Controlador.Conexion;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Window;
@@ -25,13 +40,32 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.JTable;
 import org.apache.commons.io.FileUtils;
 import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -113,6 +147,232 @@ public class A_RD extends javax.swing.JInternalFrame {
             }
         });
     }
+    
+    public void convertirJTableAPDF() {
+        Rectangle pageSize = PageSize.A2.rotate();
+        Document document = new Document(pageSize);
+        try {
+            String rutaPDF = "Reporte_Doctor.pdf";
+            PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+            document.open();
+
+            try {
+                Image imagen = Image.getInstance("C:\\Users\\PC\\Desktop\\TF2\\Integrador-Clinica\\src\\Img\\logo.png");
+                imagen.scaleToFit(150, 200);
+                document.add(imagen);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error al cargar la imagen", "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+
+            Paragraph infoDerecha = new Paragraph();
+            infoDerecha.setAlignment(Element.ALIGN_RIGHT);
+
+            // Usuario
+            Chunk usuarioChunk = new Chunk("Usuario: Administrador", FontFactory.getFont(FontFactory.HELVETICA, 13, BaseColor.BLACK));
+            infoDerecha.add(usuarioChunk);
+            Chunk fechaChunk = new Chunk("\nFecha: " + obtenerFechaActual(), FontFactory.getFont(FontFactory.HELVETICA, 13, BaseColor.BLACK));
+            infoDerecha.add(fechaChunk);
+            Chunk horaChunk = new Chunk("\nHora: " + obtenerHoraActual(), FontFactory.getFont(FontFactory.HELVETICA, 13, BaseColor.BLACK));
+            infoDerecha.add(horaChunk);
+
+            infoDerecha.setSpacingBefore(-50);
+
+            document.add(infoDerecha);
+
+            LineSeparator separator = new LineSeparator();
+            separator.setLineColor(BaseColor.BLACK);
+            separator.setLineWidth(1);
+            Chunk linebreak = new Chunk(separator);
+            document.add(linebreak);
+
+            Paragraph espacio = new Paragraph(" ");
+            document.add(espacio);
+
+            BaseColor titleColor = new BaseColor(23, 32, 49);
+            com.itextpdf.text.Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, titleColor);
+
+            String textoTitulo = "Reporte de Doctores";
+            Paragraph titulo = new Paragraph(textoTitulo.toUpperCase(), titleFont);
+            titulo.setAlignment(Element.ALIGN_CENTER); // Centrar el texto
+            titulo.setSpacingAfter(30f);
+            document.add(titulo);
+
+            PdfPTable pdfTable = new PdfPTable(tblDoctor.getColumnCount());
+            pdfTable.setWidthPercentage(100);
+            pdfTable.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            pdfTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfTable.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
+            pdfTable.getDefaultCell().setBackgroundColor(BaseColor.GRAY);
+
+            com.itextpdf.text.Font headerFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12, com.itextpdf.text.Font.BOLD, BaseColor.WHITE);
+            BaseColor headerBackgroundColor = new BaseColor(23, 66, 136, 255);
+
+            DefaultTableModel miModelo = (DefaultTableModel) tblDoctor.getModel();
+            for (int i = 0; i < miModelo.getColumnCount(); i++) {
+                String columnName = miModelo.getColumnName(i).toUpperCase(); // Convertir a mayúsculas
+                PdfPCell headerCell = new PdfPCell(new Phrase(columnName, headerFont));
+                headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                headerCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                headerCell.setBackgroundColor(headerBackgroundColor);
+                headerCell.setFixedHeight(30f);
+                pdfTable.addCell(headerCell);
+            }
+
+            com.itextpdf.text.Font dataFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12, com.itextpdf.text.Font.NORMAL, BaseColor.BLACK);
+            BaseColor rowBackgroundColor = new BaseColor(255, 255, 255);
+
+            float alturaFila = 20f;
+            float padding = 3f; // Espacio adicional muy apretado
+
+            // Obtener el TableRowSorter o configurarlo si es null
+            TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) tblDoctor.getRowSorter();
+            if (sorter == null) {
+                sorter = new TableRowSorter<>(miModelo);
+                tblDoctor.setRowSorter(sorter);
+            }
+
+            for (int i = 0; i < sorter.getViewRowCount(); i++) {
+                int modelRow = sorter.convertRowIndexToModel(i);
+                for (int j = 0; j < miModelo.getColumnCount(); j++) {
+                    Object cellValue = miModelo.getValueAt(modelRow, j);
+                    PdfPCell dataCell = new PdfPCell(new Phrase(cellValue != null ? cellValue.toString() : "", dataFont));
+                    dataCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    dataCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    dataCell.setFixedHeight(alturaFila);
+                    dataCell.setPadding(padding); // Establecer el espacio adicional
+                    dataCell.setBackgroundColor(rowBackgroundColor); // Establecer el color de fondo de la fila
+                    pdfTable.addCell(dataCell);
+                }
+            }
+
+            document.add(pdfTable);
+
+        } catch (DocumentException | IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al generar el PDF", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } finally {
+            document.close();
+        }
+    }
+
+    private String obtenerFechaActual() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    private String obtenerHoraActual() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public void convertirJTableAExcel() {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        FileOutputStream fileOut = null;
+        try {
+            Sheet sheet = workbook.createSheet("Registro del Doctor");
+            int filaInicio = 3;
+            int columnaInicio = 2;
+
+            // Estilo para el título
+            CellStyle titleStyle = workbook.createCellStyle();
+            titleStyle.setAlignment(HorizontalAlignment.CENTER);
+            titleStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+            XSSFFont titleFont = workbook.createFont();
+            titleFont.setFontHeightInPoints((short) 18);
+            titleFont.setBold(true);
+            titleStyle.setFont(titleFont);
+
+            // Título del documento
+            Row titleRow = sheet.createRow(filaInicio);
+            Cell titleCell = titleRow.createCell(columnaInicio);
+            titleCell.setCellValue("REGISTRO DE DOCTORES");
+            titleCell.setCellStyle(titleStyle);
+            sheet.addMergedRegion(new CellRangeAddress(filaInicio, filaInicio, columnaInicio, columnaInicio + tblDoctor.getColumnCount() - 1));
+
+            sheet.createRow(filaInicio + 1);
+
+            // Estilo para las cabeceras
+            byte[] rgb = {(byte) 23, (byte) 66, (byte) 136}; // Color rgba(23,66,136,255)
+            XSSFColor headerColor = new XSSFColor(new java.awt.Color(rgb[0] & 0xFF, rgb[1] & 0xFF, rgb[2] & 0xFF), null);
+
+            XSSFCellStyle headerStyle = workbook.createCellStyle();
+            headerStyle.setAlignment(HorizontalAlignment.CENTER);
+            headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+            headerStyle.setFillForegroundColor(headerColor);
+            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerStyle.setBorderTop(BorderStyle.THIN);
+            headerStyle.setBorderBottom(BorderStyle.THIN);
+            headerStyle.setBorderLeft(BorderStyle.THIN);
+            headerStyle.setBorderRight(BorderStyle.THIN);
+            XSSFFont headerFont = workbook.createFont();
+            headerFont.setColor(IndexedColors.WHITE.getIndex());
+            headerFont.setBold(true);
+            headerStyle.setFont(headerFont);
+
+            // Creación de la fila de cabecera
+            Row headerRow = sheet.createRow(filaInicio + 2);
+            for (int i = 0; i < tblDoctor.getColumnCount(); i++) {
+                Cell cell = headerRow.createCell(columnaInicio + i);
+                cell.setCellValue(" " + tblDoctor.getColumnName(i).toUpperCase() + " "); // Añadir espacios adicionales
+                cell.setCellStyle(headerStyle);
+            }
+
+            // Estilo para los datos
+            byte[] rgbRow = {(byte) 255, (byte) 255, (byte) 255}; // Color blanco para las filas
+            XSSFColor rowColor = new XSSFColor(new java.awt.Color(rgbRow[0] & 0xFF, rgbRow[1] & 0xFF, rgbRow[2] & 0xFF), null);
+
+            XSSFCellStyle dataStyle = workbook.createCellStyle();
+            dataStyle.setAlignment(HorizontalAlignment.CENTER);
+            dataStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+            dataStyle.setFillForegroundColor(rowColor);
+            dataStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            dataStyle.setBorderTop(BorderStyle.THIN);
+            dataStyle.setBorderBottom(BorderStyle.THIN);
+            dataStyle.setBorderLeft(BorderStyle.THIN);
+            dataStyle.setBorderRight(BorderStyle.THIN);
+            XSSFFont dataFont = workbook.createFont();
+            dataFont.setColor(IndexedColors.BLACK.getIndex());
+            dataStyle.setFont(dataFont);
+
+            // Rellenar los datos en la tabla
+            for (int i = 0; i < tblDoctor.getRowCount(); i++) {
+                Row row = sheet.createRow(filaInicio + 3 + i);
+                for (int j = 0; j < tblDoctor.getColumnCount(); j++) {
+                    Cell cell = row.createCell(columnaInicio + j);
+                    Object value = tblDoctor.getValueAt(i, j);
+                    cell.setCellValue(value != null ? value.toString() : "");
+                    cell.setCellStyle(dataStyle);
+                }
+            }
+
+            // Ajustar el ancho de las columnas
+            for (int i = 0; i < tblDoctor.getColumnCount(); i++) {
+                sheet.setColumnWidth(i + columnaInicio, 15 * 380);
+            }
+
+            // Guardar el archivo
+            String rutaExcel = "Reporte_Doctor.xlsx";
+            fileOut = new FileOutputStream(rutaExcel);
+            workbook.write(fileOut);
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al generar el Excel", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fileOut != null) {
+                    fileOut.close();
+                }
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -174,10 +434,20 @@ public class A_RD extends javax.swing.JInternalFrame {
 
         btnPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pdf.png"))); // NOI18N
         btnPDF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPDF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPDFMouseClicked(evt);
+            }
+        });
         jPanel2.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 24, -1, -1));
 
         btnEXCEL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sobresalir.png"))); // NOI18N
         btnEXCEL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEXCEL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEXCELMouseClicked(evt);
+            }
+        });
         jPanel2.add(btnEXCEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 24, -1, -1));
 
         jSeparator1.setBackground(new java.awt.Color(204, 204, 204));
@@ -439,6 +709,16 @@ public class A_RD extends javax.swing.JInternalFrame {
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 5)); // Filtra por la columna "DNI/PASAPORTE" (índice 4)
         }
     }//GEN-LAST:event_txtFiltrarPorDNIKeyReleased
+
+    private void btnPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPDFMouseClicked
+        convertirJTableAPDF();
+        JOptionPane.showMessageDialog(null, "PDF generado correctamente");
+    }//GEN-LAST:event_btnPDFMouseClicked
+
+    private void btnEXCELMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEXCELMouseClicked
+        convertirJTableAExcel();
+        JOptionPane.showMessageDialog(null, "EXCEL generado correctamente");
+    }//GEN-LAST:event_btnEXCELMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
